@@ -2,7 +2,7 @@
 
 namespace App.Models
 {
-    public class Employee //test de git - probleme de clonage pour les versions precedentes
+    public class Employee //test de git - probleme de clonage pour les versions precedentes..
     {
         public int EmployeeId { get; set; }
         public string LastName { get; set; }
