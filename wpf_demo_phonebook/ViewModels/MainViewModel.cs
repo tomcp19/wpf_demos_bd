@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Data;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using wpf_demo_phonebook.ViewModels.Commands;
 
@@ -8,11 +13,23 @@ namespace wpf_demo_phonebook.ViewModels
     {
         private ContactModel selectedContact;
 
+        private ObservableCollection<ContactModel> contacts = new ObservableCollection<ContactModel>();
+
         public ContactModel SelectedContact
         {
             get => selectedContact;
             set { 
                 selectedContact = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ContactModel> Contacts
+        {
+            get => contacts;
+            set
+            {
+                contacts = value;
                 OnPropertyChanged();
             }
         }
@@ -29,11 +46,15 @@ namespace wpf_demo_phonebook.ViewModels
         }
 
         public RelayCommand SearchContactCommand { get; set; }
+        //public RelayCommand GetAllCommand { get; set; }
 
         public MainViewModel()
         {
-            SearchContactCommand = new RelayCommand(SearchContact);
-            SelectedContact = PhoneBookBusiness.GetContactByID(1);
+            //SearchContactCommand = new RelayCommand(SearchContact);
+            //SelectedContact = PhoneBookBusiness.GetContactByID(1);
+
+            Contacts = PhoneBookBusiness.GetAllContacts();
+            SelectedContact = Contacts.First<ContactModel>();
         }
 
         private void SearchContact(object parameter)
@@ -62,5 +83,17 @@ namespace wpf_demo_phonebook.ViewModels
                     break;
             }
         }
+
+        private void ShowAllContact(Object parameter)
+        {
+            Contacts = PhoneBookBusiness.GetAllContacts();
+        }
+
+        /*public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }*/
+
     }
 }
