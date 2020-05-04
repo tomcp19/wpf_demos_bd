@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Text;
+using System.Windows;
 
 namespace wpf_demo_phonebook
 {
@@ -10,11 +11,13 @@ namespace wpf_demo_phonebook
     {
         private static PhonebookDAO dao = new PhonebookDAO();
 
-        public static ContactModel GetContactByName(string _name)
+        public static ObservableCollection<ContactModel> GetContactByName(string _name)
         {
             ContactModel cm = null;
 
             DataTable dt = new DataTable();
+
+            ObservableCollection<ContactModel> SearchResults = new ObservableCollection<ContactModel>();
 
             dt = dao.SearchByName(_name);
 
@@ -23,10 +26,11 @@ namespace wpf_demo_phonebook
                 foreach (DataRow row in dt.Rows)
                 {
                     cm = RowToContactModel(row);
+                    SearchResults.Add(cm);
                 }
             }
 
-            return cm;
+            return SearchResults;
         }
 
         public static ContactModel GetContactByID(int _id)

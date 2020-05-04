@@ -46,10 +46,11 @@ namespace wpf_demo_phonebook.ViewModels
 
         public MainViewModel()
         {
+            SearchContactCommand = new RelayCommand(SearchContact);
             Contacts = PhoneBookBusiness.GetAllContacts();
             SelectedContact = Contacts.First<ContactModel>();
         }
-
+        
         private void SearchContact(object parameter)
         {
             string input = parameter as string;
@@ -69,10 +70,20 @@ namespace wpf_demo_phonebook.ViewModels
                     SelectedContact = PhoneBookBusiness.GetContactByID(output);
                     break;
                 case "name":
-                    SelectedContact = PhoneBookBusiness.GetContactByName(input);
+                    Contacts = PhoneBookBusiness.GetContactByName(input);
+                    if (Contacts.Count > 0)
+                    {
+                        SelectedContact = Contacts[0];
+                    }
+                    else 
+                    {
+                        Contacts = PhoneBookBusiness.GetAllContacts();
+                        SelectedContact = Contacts.First<ContactModel>();
+                        MessageBox.Show("Aucun contact trouvé");
+                    }
                     break;
                 default:
-                    MessageBox.Show("Unkonwn search method");
+                    MessageBox.Show("Unknown search method");
                     break;
             }
         }
