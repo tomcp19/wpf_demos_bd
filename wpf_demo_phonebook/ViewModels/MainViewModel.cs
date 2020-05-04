@@ -45,12 +45,14 @@ namespace wpf_demo_phonebook.ViewModels
         public RelayCommand SearchContactCommand { get; set; }
         public RelayCommand SaveContactCommand { get; set; }
         public RelayCommand DeleteContactCommand { get; set; }
+        public RelayCommand NewContactCommand { get; set; }
 
         public MainViewModel()
         {
             SearchContactCommand = new RelayCommand(SearchContact);
             SaveContactCommand = new RelayCommand(SaveContact);
             DeleteContactCommand = new RelayCommand(DeleteContact);
+            NewContactCommand = new RelayCommand(NewContact);
 
             Contacts = PhoneBookBusiness.GetAllContacts();
             SelectedContact = Contacts.First<ContactModel>();
@@ -96,8 +98,22 @@ namespace wpf_demo_phonebook.ViewModels
 
         private void SaveContact(object parameter)
         {
-            int id = PhoneBookBusiness.UpdateContact(SelectedContact);
-            MessageBox.Show("Informations sauvegardées!");
+            if (selectedContact.ContactID != 0) //si le id existe deja, aurait pu prendre les flags comme nico le suggere en cas de id pouvant donner 0
+            {
+                int id = PhoneBookBusiness.UpdateContact(SelectedContact);
+                MessageBox.Show("Informations sauvegardées!");
+            }
+            else
+            {
+
+                int newID = PhoneBookBusiness.NewContact(SelectedContact);
+                if (newID > 0)
+                {
+                    SelectedContact.ContactID = newID;
+                    Contacts.Add(SelectedContact);
+                    SelectedContact = Contacts.Last<ContactModel>();
+                }
+            }
         }
 
         private void DeleteContact(object parameter)
@@ -107,8 +123,16 @@ namespace wpf_demo_phonebook.ViewModels
             {
                 int modif = PhoneBookBusiness.DeleteContact(SelectedContact);
                 Contacts = PhoneBookBusiness.GetAllContacts();
+                SelectedContact = Contacts.First<ContactModel>();
             }
 
+        }
+
+        private void NewContact(object parameter)
+        {
+            ContactModel NewContact = new ContactModel();
+            SelectedContact = NewContact;
+            MessageBox.Show("Veuillez remplir les champs");
         }
 
     }

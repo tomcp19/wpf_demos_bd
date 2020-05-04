@@ -94,5 +94,30 @@ namespace wpf_demo_phonebook
 
             return conn.ExecutUpdateQuery(_query, parameters);
         }
+
+        public int Insert(ContactModel cm)
+        {
+            string _query =
+                $"Insert " +
+                $"Into [Contacts] (FirstName, LastName, Email, Phone, Mobile) " +
+                $"OUTPUT INSERTED.ContactID " +
+                $"Values ('{cm.FirstName}­', '{cm.LastName}', '{cm.Email}', '{cm.Phone}', '{cm.Mobile}')";
+
+            return conn.ExecutInsertQuery(_query, null);
+        }
+
+        public int NewID()
+        {
+            string _query = $"SELECT max(ContactID) " +
+                            $"FROM [Contacts] ";
+             
+            /* SqlParameter[] parameters = new SqlParameter[1];
+             parameters[0] = new SqlParameter(" ", SqlDbType.Int);
+             parameters[0].Value = _id;
+            return conn.ExecuteSelectQuery(_query, null);*/
+
+
+            return conn.ExecuteSelectQuery(_query, null).Rows[0].Field<int>(0); //Credit a Jade pour cette ligne... autrement j'aurais pas trouvé comment pour le cast en int
+        }
     }
 }

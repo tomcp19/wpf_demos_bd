@@ -103,6 +103,16 @@ namespace wpf_demo_phonebook
             return delete;
         }
 
+        public static int NewContact(ContactModel cm)
+        {
+            int id=0;//temporaire
+
+            dao.Insert(cm);
+            id = dao.NewID();
+            //id ++; //pour no unique, pas nécessaire finalement
+            return id;
+        }
+
 
     }
 }

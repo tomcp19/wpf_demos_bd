@@ -18,6 +18,7 @@
             <Button Content="+Contact" 
                     Background="LightGray"
                     Height="30"
+                    Command="{Binding NewContactCommand}" 
                      />
             <Separator/>
             <TextBlock  VerticalAlignment="Center" Text="Recherche : "/>
@@ -71,7 +72,7 @@
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Nom de famille : "/>
             <TextBlock Grid.Row="3" Grid.Column="0" Text="Email : "/>
             <TextBlock Grid.Row="4" Grid.Column="0" Text="Téléphone : "/>
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Celluaire : "/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Cellulaire : "/>
             <TextBlock Grid.Row="6" Grid.Column="0" Text="Identifiant : "/>
 
             <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding SelectedContact.FirstName}"/>
