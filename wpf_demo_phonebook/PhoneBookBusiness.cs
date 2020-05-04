@@ -84,5 +84,25 @@ namespace wpf_demo_phonebook
             }
             return Contacts;
         }
+
+        public static int UpdateContact(ContactModel cm)
+        {
+            int update;
+            int id = cm.ContactID;
+            update = dao.Update(cm, id);
+
+            return update;
+        }
+
+        public static int DeleteContact(ContactModel cm)
+        {
+            int delete;
+            int id = cm.ContactID;
+            delete = dao.Delete(cm, id);
+
+            return delete;
+        }
+
+
     }
 }

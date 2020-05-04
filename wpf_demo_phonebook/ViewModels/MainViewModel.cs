@@ -43,10 +43,15 @@ namespace wpf_demo_phonebook.ViewModels
         }
 
         public RelayCommand SearchContactCommand { get; set; }
+        public RelayCommand SaveContactCommand { get; set; }
+        public RelayCommand DeleteContactCommand { get; set; }
 
         public MainViewModel()
         {
             SearchContactCommand = new RelayCommand(SearchContact);
+            SaveContactCommand = new RelayCommand(SaveContact);
+            DeleteContactCommand = new RelayCommand(DeleteContact);
+
             Contacts = PhoneBookBusiness.GetAllContacts();
             SelectedContact = Contacts.First<ContactModel>();
         }
@@ -86,6 +91,24 @@ namespace wpf_demo_phonebook.ViewModels
                     MessageBox.Show("Unknown search method");
                     break;
             }
+        }
+
+
+        private void SaveContact(object parameter)
+        {
+            int id = PhoneBookBusiness.UpdateContact(SelectedContact);
+            MessageBox.Show("Informations sauvegardées!");
+        }
+
+        private void DeleteContact(object parameter)
+        {
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Supprimer ce contact?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                int modif = PhoneBookBusiness.DeleteContact(SelectedContact);
+                Contacts = PhoneBookBusiness.GetAllContacts();
+            }
+
         }
 
     }

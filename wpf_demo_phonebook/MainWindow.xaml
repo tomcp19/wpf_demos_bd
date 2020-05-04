@@ -72,15 +72,18 @@
             <TextBlock Grid.Row="3" Grid.Column="0" Text="Email : "/>
             <TextBlock Grid.Row="4" Grid.Column="0" Text="Téléphone : "/>
             <TextBlock Grid.Row="5" Grid.Column="0" Text="Celluaire : "/>
-            <TextBlock Grid.Row="7" Grid.Column="0" Text="Identifiant : "/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Identifiant : "/>
 
             <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding SelectedContact.FirstName}"/>
             <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding SelectedContact.LastName}"/>
             <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding SelectedContact.Email}"/>
             <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding SelectedContact.Phone}"/>
             <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding SelectedContact.Mobile}"/>
-            <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding SelectedContact.ContactID}"/>
-
+            <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding SelectedContact.ContactID}"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" Margin="5">
+                    <Button Content="Enregistrer" Margin="5" Command="{Binding SaveContactCommand}"/>
+                    <Button Content="Supprimer" Margin="5" Command="{Binding DeleteContactCommand}"/>
+                </StackPanel>
         </Grid>
         </Grid>
     </DockPanel>
