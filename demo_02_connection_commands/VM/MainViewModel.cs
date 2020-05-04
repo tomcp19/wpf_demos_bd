@@ -1,8 +1,5 @@
 ﻿using App.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace demo_02_connection_commands.VM
 {
@@ -14,16 +11,18 @@ namespace demo_02_connection_commands.VM
         public Employee SelectedEmployee
         {
             get { return selectedEmployee; }
-            set { 
+            set
+            {
                 selectedEmployee = value;
                 OnPropertyChanged();
             }
         }
 
-        ObservableCollection<Employee> Employees 
-        { 
+        ObservableCollection<Employee> Employees
+        {
             get => employees;
-            set { 
+            set
+            {
                 employees = value;
                 OnPropertyChanged();
             }

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Reflection;
-using System.Text;
 
 namespace wpf_demo_phonebook
 {
@@ -22,7 +20,7 @@ namespace wpf_demo_phonebook
 
         private SqlConnection open()
         {
-            if (Connection.State == ConnectionState.Closed || 
+            if (Connection.State == ConnectionState.Closed ||
                 Connection.State == ConnectionState.Broken)
             {
                 Connection.Open();
@@ -40,7 +38,7 @@ namespace wpf_demo_phonebook
 
             var msg = $"Error - {methodBase.Name} - {_message}";
             Console.WriteLine(msg);
-            Debug.WriteLine (msg);
+            Debug.WriteLine(msg);
         }
 
         public DataTable ExecuteSelectQuery(string _query, SqlParameter[] parameters)
@@ -64,9 +62,10 @@ namespace wpf_demo_phonebook
                 DataAdapter.Fill(ds);
                 dataTable = ds.Tables[0];
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                writeError($"Requête : {_query} \nSqlException : {ex.StackTrace.ToString()}");    
+                writeError($"Requête : {_query} \nSqlException : {ex.StackTrace.ToString()}");
             }
             finally
             {

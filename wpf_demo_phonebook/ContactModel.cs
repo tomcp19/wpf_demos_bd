@@ -1,19 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace wpf_demo_phonebook
 {
     public class ContactModel : INotifyPropertyChanged
     {
         public int ContactID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        private string firstName;
+        private string lastName;
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Mobile { get; set; }
+
+        public string FirstName
+        {
+            get => firstName;
+            set
+            {
+                firstName = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Info)); //sinon le listview ne change pas
+            }
+        }
+
+        public string LastName
+        {
+            get => lastName;
+            set
+            {
+                lastName = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Info)); //sinon le listview ne change pas
+            }
+        }
 
         public string Info => $"{LastName} , {FirstName}";
 

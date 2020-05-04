@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Text;
-using System.Windows;
 
 namespace wpf_demo_phonebook
 {
@@ -13,7 +10,7 @@ namespace wpf_demo_phonebook
 
         public static ObservableCollection<ContactModel> GetContactByName(string _name)
         {
-            ContactModel cm = null;
+            ContactModel cm;
 
             DataTable dt = new DataTable();
 
@@ -68,7 +65,7 @@ namespace wpf_demo_phonebook
 
         public static ObservableCollection<ContactModel> GetAllContacts()
         {
-            ContactModel cm = null;
+            ContactModel cm;
             ObservableCollection<ContactModel> Contacts = new ObservableCollection<ContactModel>();
             DataTable dt = new DataTable();
 
@@ -98,14 +95,14 @@ namespace wpf_demo_phonebook
         {
             int delete;
             int id = cm.ContactID;
-            delete = dao.Delete(cm, id);
+            delete = dao.Delete(id);
 
             return delete;
         }
 
         public static int NewContact(ContactModel cm)
         {
-            int id=0;//temporaire
+            int id;
 
             dao.Insert(cm);
             id = dao.NewID();

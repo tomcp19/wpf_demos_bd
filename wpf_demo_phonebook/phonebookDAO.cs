@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace wpf_demo_phonebook
 {
@@ -82,7 +79,7 @@ namespace wpf_demo_phonebook
             return conn.ExecutUpdateQuery(_query, parameters);
         }
 
-        public int Delete(ContactModel cm, int _id)
+        public int Delete(int _id)
         {
             string _query = $"DELETE " +
                             $"FROM [Contacts] " +
@@ -110,7 +107,7 @@ namespace wpf_demo_phonebook
         {
             string _query = $"SELECT max(ContactID) " +
                             $"FROM [Contacts] ";
-             
+
             /* SqlParameter[] parameters = new SqlParameter[1];
              parameters[0] = new SqlParameter(" ", SqlDbType.Int);
              parameters[0].Value = _id;

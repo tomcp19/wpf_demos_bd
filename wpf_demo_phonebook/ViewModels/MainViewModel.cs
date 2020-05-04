@@ -8,6 +8,20 @@ namespace wpf_demo_phonebook.ViewModels
 {
     class MainViewModel : BaseViewModel
     {
+        private BaseViewModel _vm;//pour mvvm
+
+        public BaseViewModel VM
+        {
+            get { return _vm; }
+            set
+            {
+                _vm = value;
+                OnPropertyChanged();
+            }
+        }
+
+        //besoin de changer de viewmodel comme covid03? pense pas...
+
         private ContactModel selectedContact;
 
         private ObservableCollection<ContactModel> contacts = new ObservableCollection<ContactModel>();
@@ -15,7 +29,8 @@ namespace wpf_demo_phonebook.ViewModels
         public ContactModel SelectedContact
         {
             get => selectedContact;
-            set { 
+            set
+            {
                 selectedContact = value;
                 OnPropertyChanged();
             }
@@ -36,7 +51,8 @@ namespace wpf_demo_phonebook.ViewModels
         public string Criteria
         {
             get { return criteria; }
-            set { 
+            set
+            {
                 criteria = value;
                 OnPropertyChanged();
             }
@@ -49,6 +65,8 @@ namespace wpf_demo_phonebook.ViewModels
 
         public MainViewModel()
         {
+            VM = this;
+
             SearchContactCommand = new RelayCommand(SearchContact);
             SaveContactCommand = new RelayCommand(SaveContact);
             DeleteContactCommand = new RelayCommand(DeleteContact);
@@ -57,7 +75,7 @@ namespace wpf_demo_phonebook.ViewModels
             Contacts = PhoneBookBusiness.GetAllContacts();
             SelectedContact = Contacts.First<ContactModel>();
         }
-        
+
         private void SearchContact(object parameter)
         {
             string input = parameter as string;
@@ -66,7 +84,8 @@ namespace wpf_demo_phonebook.ViewModels
             if (!Int32.TryParse(input, out output))
             {
                 searchMethod = "name";
-            } else
+            }
+            else
             {
                 searchMethod = "id";
             }
@@ -82,7 +101,7 @@ namespace wpf_demo_phonebook.ViewModels
                     {
                         SelectedContact = Contacts[0];
                     }
-                    else 
+                    else
                     {
                         Contacts = PhoneBookBusiness.GetAllContacts();
                         SelectedContact = Contacts.First<ContactModel>();
@@ -100,7 +119,7 @@ namespace wpf_demo_phonebook.ViewModels
         {
             if (selectedContact.ContactID != 0) //si le id existe deja, aurait pu prendre les flags comme nico le suggere en cas de id pouvant donner 0
             {
-                int id = PhoneBookBusiness.UpdateContact(SelectedContact);
+                PhoneBookBusiness.UpdateContact(SelectedContact);
                 MessageBox.Show("Informations sauvegardées!");
             }
             else
@@ -121,7 +140,7 @@ namespace wpf_demo_phonebook.ViewModels
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Supprimer ce contact?", "Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                int modif = PhoneBookBusiness.DeleteContact(SelectedContact);
+                PhoneBookBusiness.DeleteContact(SelectedContact);
                 Contacts = PhoneBookBusiness.GetAllContacts();
                 SelectedContact = Contacts.First<ContactModel>();
             }

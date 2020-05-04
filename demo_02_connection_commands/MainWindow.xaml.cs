@@ -1,7 +1,5 @@
 ﻿using App.Models;
-using demo_02_connection_commands.VM;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
@@ -25,7 +23,8 @@ namespace demo_02_connection_commands
         public Employee SelectedEmployee
         {
             get { return selectedEmployee; }
-            set {
+            set
+            {
                 selectedEmployee = value;
                 OnPropertyChanged();
             }
@@ -34,10 +33,11 @@ namespace demo_02_connection_commands
 
         private ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
 
-        public ObservableCollection<Employee> Employees 
-        { 
+        public ObservableCollection<Employee> Employees
+        {
             get => employees;
-            set {
+            set
+            {
                 employees = value;
                 OnPropertyChanged();
             }
@@ -96,7 +96,7 @@ namespace demo_02_connection_commands
 
                 Employees.Add(emp);
             }
-            
+
         }
 
         private void UpdateEmployee_Click(object sender, RoutedEventArgs e)
@@ -139,7 +139,7 @@ namespace demo_02_connection_commands
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 try
-                { 
+                {
                     command.Connection.Open();
                     result = command.ExecuteNonQuery();
                 }

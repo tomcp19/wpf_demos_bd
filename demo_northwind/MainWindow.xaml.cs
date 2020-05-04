@@ -18,7 +18,7 @@ namespace demo_northwind
         private void TestConnection_Click(object sender, RoutedEventArgs e)
         {
             var connString = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
-            
+
 
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -35,7 +35,8 @@ namespace demo_northwind
                             this.dgCustomers.ItemsSource = dataTable.DefaultView;
                         }
 
-                    } catch
+                    }
+                    catch
                     {
                         MessageBox.Show("An error occured!");
                     }

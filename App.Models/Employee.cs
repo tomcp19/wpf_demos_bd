@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace App.Models
+﻿namespace App.Models
 {
     public class Employee //test de git - probleme de clonage pour les versions precedentes...
     {
@@ -10,6 +8,6 @@ namespace App.Models
         public string HomePhone { get; set; }
 
         public override string ToString() => $"{LastName}, {FirstName}";
-        
+
     }
 }
