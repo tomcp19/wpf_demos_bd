@@ -65,7 +65,7 @@ namespace wpf_demo_phonebook
         public static ObservableCollection<ContactModel> GetAllContacts()
         {
             ContactModel cm = null;
-            ObservableCollection<ContactModel> OC_Contacts = new ObservableCollection<ContactModel>();
+            ObservableCollection<ContactModel> Contacts = new ObservableCollection<ContactModel>();
             DataTable dt = new DataTable();
 
             dt = dao.GetAll();
@@ -75,10 +75,10 @@ namespace wpf_demo_phonebook
                 foreach (DataRow row in dt.Rows)
                 {
                     cm = RowToContactModel(row);
-                    OC_Contacts.Add(cm);
+                    Contacts.Add(cm);
                 }
             }
-            return OC_Contacts;
+            return Contacts;
         }
     }
 }
